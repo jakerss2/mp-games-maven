@@ -259,7 +259,7 @@ public interface Matrix<T> extends Cloneable {
    * Delete a column.
    *
    * @param col
-   *   The number of the column to delete.
+   *   The given number of the column to delete.
    *
    * @throws IndexOutOfBoundsException
    *   If the column is negative or greater than or equal to the width.
