@@ -526,4 +526,21 @@ public class MatrixV0<T> implements Matrix<T> {
     String str = "(" + x + "," + y + ")";
     return str;
   } // makeCoord(int, int)
+
+    /**
+   * This was specifically implemented for Matching Game.
+   * 
+   * @pre the length of pairs is a perfect square.
+   * @return 
+   */
+  public T[][] getTwoDArray() {
+    T [][] vals = (T[][]) new Object[this.height()][this.width()];
+    for (int i = 0; i <this.height(); i++) {
+      for (int j = i; j < this.width(); j++) {
+        vals[i][j] = this.get(i, j);
+      }
+    }
+
+    return vals;
+  }
 } // class MatrixV0
