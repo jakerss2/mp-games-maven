@@ -37,7 +37,6 @@ public class MatchingUI {
     game = new MatchingGame(size);
 
     pen.println("If you would ever like to quit the game, enter 'q'. \n");
-    pen.println("If you would like to start a new game, enter 'n'. \n");
 
     while (!game.finished) {
       game.printBoard(0);
@@ -48,7 +47,7 @@ public class MatchingUI {
       String guess1 = getGuess();
       int input1 = game.checkInput(guess1);
       while (input1 == -1) {
-        pen.println("Invalid input. \n Enter q to quit game, n for new game, or a valid square\n");
+        pen.println("Invalid input. \n Enter q to quit game or a valid square\n");
         pen.flush();
         guess1 = getGuess();
         input1 = game.checkInput(guess1);
@@ -56,9 +55,6 @@ public class MatchingUI {
       if (input1 == -3) {
         pen.println("Thanks for playing!");
         game.finished = true;
-        break;
-      } else if (input1 == -5) {
-        game.newGame();
         break;
       } else {
         value1 = game.makeGuess(input1 - 1);
@@ -69,7 +65,7 @@ public class MatchingUI {
       String guess2 = getGuess();
       int input2 = game.checkInput(guess2);
       while (input2 == -1) {
-        pen.println("Invalid input. \n Enter q to quit game, n for new game, or a valid square\n");
+        pen.println("Invalid input. \n Enter q to quit game, or a valid square\n");
         pen.flush();
         guess2 = getGuess();
         input2 = game.checkInput(guess2);
@@ -77,9 +73,6 @@ public class MatchingUI {
       if (input2 == -1) {
         pen.println("Thanks for playing!");
         game.finished = true;
-        break;
-      } else if (input2 == -5) {
-        game.newGame();
         break;
       } else {
         value2 = game.makeGuess(input2 - 1);
