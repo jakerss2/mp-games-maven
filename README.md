@@ -10,7 +10,12 @@ Authors:
 
 Instructions:
 
-- **Please add instructions for running the game**
+- To start the game, enter the following commands into the terminal:
+-       mvn clean compile pacakge -q
+-       mvn exec:java
+
+- Then, when prompted, enter a square number to reveal and make your best guesses!
+- You can also input q to quit the game whenever prompted for input
 
 Acknowledgements:
 
