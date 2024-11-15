@@ -3,69 +3,108 @@ package edu.grinnell.csc207.main;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * A matching game's user interface.
+ * @author Alyssa Ryan
+ * @author Jacob Bell
+ */
 public class MatchingUI {
+  /**
+   * MatchingGame object for the user to play on.
+   */
+  static MatchingGame game;
+  /**
+   * Scanner to use.
+   */
+  static Scanner eyes;
+
+  /**
+   * Allows the user to play the game.
+   * @param args Command line arguments
+   */
   public static void main(String[] args) {
-    Scanner eyes = new Scanner(System.in);
+    eyes = new Scanner(System.in);
     PrintWriter pen = new PrintWriter(System.out, true);
-    pen.println("Please enter a single digit EVEN number for the size of board(NxN board)\n");
+    pen.println("Please enter a single digit even number for the size of board(NxN board)\n");
     int size = eyes.nextInt();
 
+
     while ((size % 2) != 0 && size < 10) {
-      pen.println("Invalid Integer, single digit EVEN NUMBER");
+      pen.println("Invalid Integer, single digit even number");
       size = eyes.nextInt();
-    }
+    } //while size is invalid
 
-    MatchingGame game = new MatchingGame(size);
+    game = new MatchingGame(size);
 
-    while(!game.finishedBoard()) {
-      printBoard(game.getBoard());
+    pen.println("If you would ever like to quit the game, enter 'q'. \n");
+    pen.println("If you would like to start a new game, enter 'n'. \n");
+
+    while (!game.finished) {
+      game.printBoard(0);
+      String value1 = "";
+      String value2 = "";
 
       pen.println("Please enter your first guess: ");
-      char guess1 = getGuess(size);
-      game.makeGuess(guess1);
-      printBoard(game.getBoard());
+      String guess1 = getGuess();
+      int input1 = game.checkInput(guess1);
+      while (input1 == -1) {
+        pen.println("Invalid input. \n Enter q to quit game, n for new game, or a valid square\n");
+        pen.flush();
+        guess1 = getGuess();
+        input1 = game.checkInput(guess1);
+      } //while
+      if (input1 == -3) {
+        pen.println("Thanks for playing!");
+        game.finished = true;
+        break;
+      } else if (input1 == -5) {
+        game.newGame();
+        break;
+      } else {
+        value1 = game.makeGuess(input1 - 1);
+      } //if/else
+      game.printBoard(1);
 
       pen.println("Please enter your second guess: ");
-      char guess2 = (char) eyes.nextInt();
-      game.makeGuess(guess2);
-      printBoard(game.getBoard());
-
-      if (game.hasMatch()) {
-        pen.println("Correct guess! Congrats!");
+      String guess2 = getGuess();
+      int input2 = game.checkInput(guess2);
+      while (input2 == -1) {
+        pen.println("Invalid input. \n Enter q to quit game, n for new game, or a valid square\n");
+        pen.flush();
+        guess2 = getGuess();
+        input2 = game.checkInput(guess2);
+      } //while
+      if (input2 == -1) {
+        pen.println("Thanks for playing!");
+        game.finished = true;
+        break;
+      } else if (input2 == -5) {
+        game.newGame();
+        break;
       } else {
-        pen.println("Incorrect. Try Again");
-      }
-      
-      game.updateBoard();
-    }
-    pen.println("Congratulations! You won our game!!");
-  }
+        value2 = game.makeGuess(input2 - 1);
+      } //if/else
+      game.printBoard(1);
 
-  public static void printBoard(char[][] board) {
-    PrintWriter pen = new PrintWriter(System.out, true);
-    String Edge = ("+" + "-".repeat((board.length * 2) - 1) + "+\n");
-    pen.print(Edge);
-    for (int i = 0; i < board.length; i++) {
-      pen.print("|");
-      for (int j = 0; i < board.length; i++) {
-        pen.print(board[i][j] + "|");
-      }
-      pen.print("\n");
-    }
-    pen.print(Edge);
+      Boolean guessedCorrect = (value1.equals(value2));
+      game.finishRound(guessedCorrect);
+    } //while
 
-    pen.flush();
-  }
+    pen.println("Correct values of the game:");
+    game.printBoard(2);
 
-  public static char getGuess(int size) {
-    int guess = 0;
-    Scanner eyes = new Scanner(System.in);
-    PrintWriter pen = new PrintWriter(System.out, true);
-    guess = eyes.nextInt();
-    if (guess > (size * size)) {
-      pen.println("Invalid guess, please provide a number between 0 - " + (size * size));
-      guess = eyes.nextInt();
-    }
-    return (char) guess;
-  }
-}
+    eyes.close();
+  } //main
+
+  /**
+   * Gets input from the user.
+   * @return String that represents user's input.
+   */
+  public static String getGuess() {
+    String guess = "";
+    System.out.flush();
+    Scanner read = new Scanner(System.in);
+    guess = read.nextLine();
+    return guess;
+  } //getGuess
+} //MatchingUI
