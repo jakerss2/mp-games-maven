@@ -34,9 +34,9 @@ public class MatrixV0<T> implements Matrix<T> {
    * Create a new matrix of the specified width and height with the
    * given value as the default.
    *
-   * @param wid
+   * @param width
    *   The width of the matrix.
-   * @param hei
+   * @param height
    *   The height of the matrix.
    * @param def
    *   The default value, used to fill all the cells.
@@ -442,7 +442,7 @@ public class MatrixV0<T> implements Matrix<T> {
    *
    * @return a copy of the matrix.
    */
-  public Matrix clone() {
+  public MatrixV0<T> clone() {
     MatrixV0<T> clonedArr = new MatrixV0<>(this.width, this.height, this.defVal);
     for (String coord : this.matrix.getAllKeys()) {
       try {
@@ -529,18 +529,16 @@ public class MatrixV0<T> implements Matrix<T> {
 
     /**
    * This was specifically implemented for Matching Game.
-   * 
    * @pre the length of pairs is a perfect square.
-   * @return 
+   * @return An array version of the Matrix
    */
   public T[][] getTwoDArray() {
-    T [][] vals = (T[][]) new Object[this.height()][this.width()];
-    for (int i = 0; i <this.height(); i++) {
+    T[][] vals = (T[][]) new Object[this.height()][this.width()];
+    for (int i = 0; i < this.height(); i++) {
       for (int j = i; j < this.width(); j++) {
         vals[i][j] = this.get(i, j);
-      }
-    }
-
+      } //for
+    } //for
     return vals;
-  }
+  } //getTwoDArray
 } // class MatrixV0
