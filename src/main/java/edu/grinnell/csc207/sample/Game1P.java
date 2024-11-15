@@ -10,8 +10,9 @@ import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import java.util.Arrays;
-import java.util.List;
+//Commented out to stop the checkstyle errors
+//import java.util.Arrays;
+//import java.util.List;
 import java.util.Random;
 
 /**
