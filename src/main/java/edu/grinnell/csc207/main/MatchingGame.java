@@ -48,7 +48,6 @@ public class MatchingGame {
       } // for j
       pen.printf("\n");
       pen.printf(edge);
-      pen.printf("\n");
     } // for i
   } //printBoard
 
@@ -71,19 +70,15 @@ public class MatchingGame {
    * Checks whether input is valid. If input is q, quits game. If input is n, restarts game
    * @param input Input entered from user
    * @return returns integer version of input if input was valid square,
-   *         -3 if user asked to quit, -5 if user asked make new game, or -1 if invalid input
+   *         -3 if user asked to quit, or -1 if invalid input
    */
   int checkInput(String input) {
-    PrintWriter pen = new PrintWriter(System.out, true);
     int check = isInteger(input);
     if (check != -1 && check != -3 && check != -5) {
       return check;
-    } else if (input == "q") {
+    } else if (input.equals("q")) {
       return -3;
-    } else if (input == "n") {
-      return -5;
     } else {
-      pen.println("Invalid input. Please enter a square number, q to quit, or n for new game.");
       return -1;
     } //if checks input from user
   } //checkInput
@@ -120,14 +115,6 @@ public class MatchingGame {
       board.currentValues = board.beginningValues.clone();
     } //if user guessed correctly
   } //finishRound
-
-  /**
-   * Starts a new game, resetting the boards back to regular.
-   */
-  void newGame() {
-    board.resetBoards();
-    pairsFound = 0;
-  } //newGame
 
   /**
    * Begins the game and initializes everything.
