@@ -3,7 +3,7 @@ package edu.grinnell.csc207.util;
 /**
  * An implementation of two-dimensional matrices.
  *
- * @author Your Name Here
+ * @author Jacob Bell
  * @author Samuel A. Rebelsky
  *
  * @param <T>
@@ -34,9 +34,9 @@ public class MatrixV0<T> implements Matrix<T> {
    * Create a new matrix of the specified width and height with the
    * given value as the default.
    *
-   * @param width
+   * @param widthc
    *   The width of the matrix.
-   * @param height
+   * @param heightc
    *   The height of the matrix.
    * @param def
    *   The default value, used to fill all the cells.
@@ -44,10 +44,10 @@ public class MatrixV0<T> implements Matrix<T> {
    * @throws NegativeArraySizeException
    *   If either the width or height are negative.
    */
-  public MatrixV0(int width, int height, T def) {
+  public MatrixV0(int widthc, int heightc, T def) {
     // this isn't efficient but it gets the job done! :)
-    for (int y = 0; y < height; y++) {
-      for (int x = 0; x < width; x++) {
+    for (int y = 0; y < heightc; y++) {
+      for (int x = 0; x < widthc; x++) {
         String str = "(" + x + "," + y + ")";
         try {
           matrix.set(str, def);
@@ -56,8 +56,8 @@ public class MatrixV0<T> implements Matrix<T> {
         } // try/catch
       } // for
     } // for
-    this.width = width;
-    this.height = height;
+    this.width = widthc;
+    this.height = heightc;
     this.defVal = def;
   } // MatrixV0(int, int, T)
 
@@ -65,16 +65,16 @@ public class MatrixV0<T> implements Matrix<T> {
    * Create a new matrix of the specified width and height with
    * null as the default value.
    *
-   * @param width
+   * @param widthc
    *   The width of the matrix.
-   * @param height
+   * @param heightc
    *   The height of the matrix.
    *
    * @throws NegativeArraySizeException
    *   If either the width or height are negative.
    */
-  public MatrixV0(int width, int height) {
-    this(width, height, null);
+  public MatrixV0(int widthc, int heightc) {
+    this(widthc, heightc, null);
   } // MatrixV0
 
   // +--------------+------------------------------------------------

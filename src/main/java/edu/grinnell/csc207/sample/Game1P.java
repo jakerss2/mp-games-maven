@@ -201,10 +201,10 @@ public class Game1P {
    * @param args
    *   Command-line arguments.
    */
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args)
+      throws IOException {
     PrintWriter pen = new PrintWriter(System.out, true);
     BufferedReader eyes = new BufferedReader(new InputStreamReader(System.in));
-
     int rrRemaining = 2;
     int rcRemaining = 2;
     int icRemaining = 2;
@@ -213,7 +213,6 @@ public class Game1P {
     int height = DEFAULT_HEIGHT;
     Random rand = new Random();
     int game = rand.nextInt();
-
     // Process the command line
     for (int i = 0; i < args.length; i++) {
       switch (args[i]) {
@@ -229,7 +228,6 @@ public class Game1P {
             return;
           } // if
           break;
-
         case "-h":
           try {
             height = Integer.parseInt(args[++i]);
@@ -242,7 +240,6 @@ public class Game1P {
             return;
           } // if
           break;
-
         case "-s":
           try {
             game = Integer.parseInt(args[++i]);
@@ -251,26 +248,19 @@ public class Game1P {
             return;
           } // try/catch
           break;
-
         default:
           System.err.printf("Invalid command-line flag: %s\n", args[i]);
           return;
       } // switch
     } // for
-
     // Get started
     printInstructions(pen);
     pen.print("Hit return to continue");
     pen.flush();
     eyes.readLine();
-
-    // Set up the board
     Matrix<String> board = setupBoard(width, height, game);
-
-    // Run the game
     pen.println("Game setup number " + game);
     pen.println();
-
     String[] commands = new String[] {"RR", "RC", "IR", "IC", "SKIP", "UNDO", "DONE"};
     boolean done = false;
     Matrix<String> prev = board.clone();
@@ -293,7 +283,6 @@ public class Game1P {
           board.deleteRow(rowToRemove);
           process(board);
           break;
-
         case "RC":
           if (rcRemaining < 0) {
             pen.println("Sorry, you've used up your remove column commands.");
@@ -309,7 +298,6 @@ public class Game1P {
           board.deleteCol(colToRemove);
           process(board);
           break;
-
         case "IR":
           if (irRemaining < 0) {
             pen.println("Sorry, you've used up your insert row commands.");
@@ -325,7 +313,6 @@ public class Game1P {
           board.insertRow(rowToInsert);
           process(board);
           break;
-
         case "IC":
           if (icRemaining < 0) {
             pen.println("Sorry, you've used up your insert row commands.");
@@ -341,16 +328,13 @@ public class Game1P {
           board.insertCol(colToInsert);
           process(board);
           break;
-
         case "DONE":
           done = true;
           break;
-
         case "SKIP":
           prev = board.clone();
           process(board);
           break;
-
         case "UNDO":
           if (board == prev) {
             pen.println("Sorry: There's only one level of undo.");
@@ -358,16 +342,13 @@ public class Game1P {
             board = prev;
           } // if/else
           break;
-
         default:
           pen.printf("Unexpected command: '%s'. Please try again.\n", command);
           break;
       } // switch
     } // while
-
     // Print final results
     printResults(pen, board);
-
     // And we're done
     pen.close();
   } // main(String[])

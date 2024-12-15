@@ -49,6 +49,7 @@ public class MatchingGame {
       pen.printf("\n");
       pen.printf(edge);
     } // for i
+    pen.printf("\n");
   } //printBoard
 
   /**
